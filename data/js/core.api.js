@@ -32,6 +32,7 @@ define(function(require, exports, module) {
   var TSCORE = require('tscore');
   //var tsAudioRecorderUI = require('tsaudiorecorderui');
   var tsCalendarUI = require('tscalendarui');
+  var tsThemes = require('tsthemes');
 
   // Defining variables
   var currentPath;
@@ -86,6 +87,7 @@ define(function(require, exports, module) {
     }
     tsSettings.upgradeSettings();
     // Init UI components
+    tsThemes.loadTheme(TSCORE.Config.getTheme());
     tsCoreUI.initUI();
     tsTagsUI.initUI();
     tsTagsUI.generateTagGroups();

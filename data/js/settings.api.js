@@ -1022,6 +1022,14 @@ define(function(require, exports, module) {
     exports.Settings.defaultTagTextColor = value;
   }
 
+  function getTheme() {
+    return exports.Settings.theme || '';
+  }
+
+  function setTheme(theme) {
+    exports.Settings.theme = theme;
+  }
+
   //////////////////// API methods ///////////////////
   function getFileTypeEditor(fileTypeExt) {
     for (var i = 0; i < exports.Settings.supportedFileTypes.length; i++) {
@@ -1582,4 +1590,6 @@ define(function(require, exports, module) {
   exports.setDefaultTagColor = setDefaultTagColor;
   exports.getDefaultTagTextColor = getDefaultTagTextColor;
   exports.setDefaultTagTextColor = setDefaultTagTextColor;
+  exports.getTheme = getTheme;
+  exports.setTheme = setTheme;
 });

@@ -112,6 +112,7 @@ var isWin = navigator.appVersion.indexOf("Win")!==-1;
       datetimepicker:         'libs/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min',
 
       tscore:                 'js/core.api',
+      tsthemes:               'js/themes',
       tssetting:              'js/settings.api',
       tssettingsdefault:      'js/settings.default',
       tsoptions:              'js/options.ui',

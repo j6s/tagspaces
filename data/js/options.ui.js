@@ -8,6 +8,7 @@ define(function(require, exports, module) {
   var TSCORE = require('tscore');
   var tsExtManager = require('tsextmanager');
   var saveAs = require('libs/filesaver.js/FileSaver.min.js');
+  var themes = require('tsthemes');
 
   function generateSelectOptions(parent, data, selectedId, helpI18NString) {
     parent.empty();
@@ -67,6 +68,20 @@ define(function(require, exports, module) {
     $('#useOCR').attr('disabled', !isMetaEnabled);
     $('#useTextExtraction').attr('disabled', !isMetaEnabled);
     $('#useGenerateThumbnails').attr('disabled', !isMetaEnabled);
+  }
+
+  function updateThemeList() {
+      themes.listThemes(function(themes) {
+          var $themes = $('#theme');
+          $themes.html('<option value="">-</option>');
+          for(var file in themes) {
+              var option = document.createElement('option');
+              option.setAttribute('value', file);
+              option.innerHTML = themes[file];
+              $themes.append(option);
+          }
+          $themes.val(TSCORE.Config.getTheme())
+      });
   }
 
   function initUI() {
@@ -150,6 +165,7 @@ define(function(require, exports, module) {
   }
 
   function reInitUI() {
+    updateThemeList();
     $('#extensionsPathInput').val(TSCORE.Config.getExtensionPath());
     $('#showHiddenFilesCheckbox').attr('checked', TSCORE.Config.getShowUnixHiddenEntries());
     $('#showMainMenuCheckbox').attr('checked', TSCORE.Config.getShowMainMenu());
@@ -284,6 +300,7 @@ define(function(require, exports, module) {
     TSCORE.Config.setOpenFileExternallyKeyBinding(parseKeyBinding($('#openFileExternallyKeyBinding').val()));
     TSCORE.Config.setDefaultTagColor($('#tagsBackgroundColor').val());
     TSCORE.Config.setDefaultTagTextColor($('#tagsForegroundColor').val());
+    TSCORE.Config.setTheme($('#theme').val());
     if (TSCORE.PRO) {
       //var thumbnailSize = $('#defaultThumbnailSize').val();
       TSCORE.Config.setEnableMetaData($('#enableMetaData').is(':checked'));
@@ -304,6 +321,8 @@ define(function(require, exports, module) {
     TSCORE.Config.setColoredFileExtensionsEnabled($('#coloredFileExtensionsEnabledCheckbox').is(':checked'));
     TSCORE.Config.setShowTagAreaOnStartup($('#showTagAreaOnStartupCheckbox').is(':checked'));
     TSCORE.Config.saveSettings();
+
+    themes.loadTheme($('#theme').val());
   }
 
   function collectPerspectivesData() {
